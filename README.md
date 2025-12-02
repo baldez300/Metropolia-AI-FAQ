@@ -98,13 +98,15 @@ Click the image above to watch the full demo on YouTube.
 Metropolia-AI-FAQ/
 ├── app.py                 # Flask backend with API logic
 ├── requirements.txt       # Python dependencies
-├── .env.example          # Environment template
-├── README.md             # This file
+├── .env.example           # Environment template
+├── README.md              # This file
 ├── templates/
-│   └── index.html        # Web interface
-└── static/
-   ├── styles.css        # Styling
-   └── script.js         # Frontend JavaScript (validation + API calls)
+│   └── index.html         # Web interface
+├── static/
+│   ├── styles.css         # Styling
+│   └── script.js          # Frontend JavaScript (validation + API calls)
+└── tests/
+   └── test_app.py        # Unit tests for backend endpoints
 ```
 
 ## 📝 Technologies Used
