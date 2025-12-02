@@ -17,6 +17,12 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 app = Flask(__name__)
 
+# Define limits that match the frontend (enforce server-side to prevent abuse)
+TEXT_MAX_LENGTH = 5000
+QUESTION_MAX_LENGTH = 300
+TEXT_MIN_LENGTH = 20
+QUESTION_MIN_LENGTH = 3
+
 SYSTEM_PROMPT = """You are an AI assistant designed to help students and staff at Metropolia UAS.
 Your role is to help with course materials, lecture notes, and educational questions.
 Provide clear, concise, and helpful answers. If the question is outside the scope of the provided text, say so.
@@ -61,18 +67,23 @@ def ask():
     """
     try:
         data = request.json
-        text = data.get("text", "").strip()
-        question = data.get("question", "").strip()
+        # Handle None/null values by converting to empty strings
+        text = (data.get("text") or "").strip()
+        question = (data.get("question") or "").strip()
 
         # Input validation
         if not text:
             return jsonify({"error": "Please provide lecture text."}), 400
         if not question:
             return jsonify({"error": "Please enter a question."}), 400
-        if len(text) < 20:
+        if len(text) < TEXT_MIN_LENGTH:
             return jsonify({"error": "Lecture text is too short. Please provide more content."}), 400
-        if len(question) < 3:
+        if len(question) < QUESTION_MIN_LENGTH:
             return jsonify({"error": "Question is too short. Please be more specific."}), 400
+        if len(text) > TEXT_MAX_LENGTH:
+            return jsonify({"error": f"Lecture text exceeds maximum length ({TEXT_MAX_LENGTH} characters). Please shorten it."}), 400
+        if len(question) > QUESTION_MAX_LENGTH:
+            return jsonify({"error": f"Question exceeds maximum length ({QUESTION_MAX_LENGTH} characters). Please shorten it."}), 400
 
         prompt = f"Based on the following course material, please answer the question.\n\nCourse Material:\n{text}\n\nQuestion: {question}\n\nProvide a clear and concise answer."
 

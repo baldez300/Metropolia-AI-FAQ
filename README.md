@@ -1,6 +1,6 @@
-# 📚 Metropolia Course FAQ Assistant
+# 📚 Metropolia UAS Course FAQs Assistant
 
-A Flask web application that leverages OpenAI's LLMs to help Metropolia students and staff get instant answers to questions about course materials. Simply paste lecture notes and ask a question, the AI will provide a concise, helpful response.
+A small Flask web application that integrates the OpenAI API to provide an AI-powered Course FAQ Assistant. The backend (`app.py`) exposes an `/ask` endpoint that validates input and queries OpenAI, while the frontend (`templates/index.html`, `static/script.js`, `static/styles.css`) provides a simple UI for pasting lecture text, asking questions, and viewing results. Tests are included (`tests/test_app.py`) and dependencies are listed in `requirements.txt`.
 
 ## 🎯 Problem Solved
 
@@ -78,6 +78,20 @@ Students often need quick summaries, clarifications or key takeaways from lectur
 **Question:** "What are the most important concepts for the exam?"
 **Result:** Focused study guide
 
+## 📸 UI Screenshot & Demo
+
+### User Interface
+A screenshot of the application interface UI:
+
+![Screenshot of the FAQ Assistant UI](images/FAQ_Assistant_UI.png)
+
+### Demo Video
+Watch a short walkthrough of the app:
+
+[![Watch the demo](images/MY_Video_Demo.png)](https://youtu.be/pNiwXZcHoWM)
+
+Click the image above to watch the full demo on YouTube.
+
 ## 🔧 Project Structure
 
 ```
@@ -112,7 +126,41 @@ OPENAI_API_KEY=your-openai-api-key
 **Max Tokens**: 300 (adjustable in `app.py`)
 **Temperature**: 0.2 (low for consistent, focused answers)
 
+## 🧪 Testing
+
+Unit tests are included to ensure the backend endpoints work correctly.
+
+### Run Tests
+
+```bash
+# Install test dependencies
+pip install -r requirements.txt
+
+# Run all tests
+pytest tests/test_app.py -v
+
+# Run tests with coverage report
+pytest tests/test_app.py --cov=app --cov-report=html
+```
+
+## 📸 Testing Screenshot
+A screenshot of test results in terminal:
+
+![Screenshot of test results](images/FAQ_Assistant_Testing.png)
+
+### Test Coverage
+
+Tests cover:
+- ✅ Valid inputs and successful responses
+- ✅ Input validation (empty, too short, too long)
+- ✅ Boundary conditions (inputs at exactly max/min limits)
+- ✅ Special characters and Unicode handling
+- ✅ API error handling
+- ✅ Health check endpoint
+
 ## 🐛 Troubleshooting
+If you encounter issues, check the the code logic and ensure all dependencies are installed. 
+#### Common problems:
 
 ### "OPENAI_API_KEY not set"
 - Ensure you've created a `.env` file with your API key

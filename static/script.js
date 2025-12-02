@@ -5,6 +5,7 @@ const TEXT_MAX = 5000;   // max chars for lecture text
 const QUESTION_MAX = 300; // max chars for question
 const TEXT_MIN = 20;     // minimum useful lecture text
 const QUESTION_MIN = 3;  // minimum question length
+const HISTORY_MAX = 10;  // max stored history items
 
 // DOM elements
 const askBtn = document.getElementById("askBtn");
@@ -16,6 +17,8 @@ const errorBox = document.getElementById("error");
 const result = document.getElementById("result");
 const textHelp = document.getElementById("textHelp");
 const questionHelp = document.getElementById("questionHelp");
+const historyList = document.getElementById("historyList");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
 // Initialize maxlength attributes (in case HTML doesn't include them)
 if (!textInput.getAttribute('maxlength')) textInput.setAttribute('maxlength', TEXT_MAX);
@@ -97,6 +100,8 @@ askBtn.addEventListener('click', async () => {
     if (res.ok && data.answer) {
       // success
       result.textContent = data.answer;
+      // add successful query to history
+      addToHistory(text, question);
     } else {
       // server-side validation or other error
       const msg = data.error || 'An unexpected error occurred. Please try again.';
@@ -141,3 +146,54 @@ questionInput.addEventListener('keypress', (e) => {
 
 // Accessibility: ensure button state reflects validity on startup
 updateButtonState();
+
+// ============ HISTORY MANAGEMENT ============
+
+// Load and render history from localStorage on page load
+function loadHistory() {
+  const stored = localStorage.getItem('faqHistory');
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveHistory(items) {
+  localStorage.setItem('faqHistory', JSON.stringify(items.slice(0, HISTORY_MAX)));
+}
+
+function renderHistory() {
+  const items = loadHistory();
+  historyList.innerHTML = '';
+  if (items.length === 0) {
+    historyList.innerHTML = '<p class="history-empty">No recent questions yet.</p>';
+    return;
+  }
+  items.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'history-item';
+    el.innerHTML = `<strong>${item.question.substring(0, 50)}${item.question.length > 50 ? '...' : ''}</strong><br><small>${new Date(item.timestamp).toLocaleString()}</small>`;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', () => {
+      textInput.value = item.text;
+      questionInput.value = item.question;
+      updateButtonState();
+      textInput.scrollIntoView({ behavior: 'smooth' });
+    });
+    historyList.appendChild(el);
+  });
+}
+
+function addToHistory(text, question) {
+  const items = loadHistory();
+  items.unshift({ text, question, timestamp: new Date().toISOString() });
+  saveHistory(items);
+  renderHistory();
+}
+
+clearHistoryBtn.addEventListener('click', () => {
+  if (confirm('Clear all recent Lecture text & Question(s)?')) {
+    localStorage.removeItem('faqHistory');
+    renderHistory();
+  }
+});
+
+// Render history on startup
+renderHistory();

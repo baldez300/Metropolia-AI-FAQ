@@ -1,38 +1,45 @@
 ﻿<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Metropolia Course FAQ Assistant</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
-  <div class="container">
-    <h1>📚 Metropolia Course FAQ Assistant</h1>
-    <p class="subtitle">Paste lecture notes and ask questions powered by AI</p>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Metropolia Course FAQ Assistant</title>
+        <link rel="stylesheet" href="/static/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>📚 Metropolia Course FAQ Assistant</h1>
+            <p class="subtitle">Paste lecture notes and ask questions powered by AI</p>
 
-    <div class="form-group">
-      <label for="text">Lecture Text</label>
-      <textarea id="text" placeholder="Paste your lecture notes, slides, or course material here..." rows="6" maxlength="5000" aria-describedby="textHelp"></textarea>
-      <div class="help-text" id="textHelp"></div>
-    </div>
+            <div class="form-group">
+                <label for="text">Lecture Text</label>
+                <textarea id="text" placeholder="Paste your lecture notes, slides, or course material here..." rows="6" maxlength="5000" aria-describedby="textHelp"></textarea>
+                <div class="help-text" id="textHelp"></div>
+            </div>
 
-    <div class="form-group">
-      <label for="question">Your Question</label>
-      <textarea id="question" placeholder="e.g., Summarize in 3 bullet points, What are the key concepts?" rows="2" maxlength="300" aria-describedby="questionHelp"></textarea>
-      <div class="help-text" id="questionHelp"></div>
-    </div>
+            <div class="form-group">
+                <label for="question">Your Question</label>
+                <textarea id="question" placeholder="e.g., Summarize in 3 bullet points, What are the key concepts?" rows="2" maxlength="300" aria-describedby="questionHelp"></textarea>
+                <div class="help-text" id="questionHelp"></div>
+            </div>
 
-    <button id="askBtn" disabled aria-disabled="true">Ask AI Assistant</button>
+            <button id="askBtn" disabled aria-disabled="true">Ask AI Assistant</button>
 
-    <div class="result-container" id="resultContainer">
-      <div class="loading" id="loading">
-        <span class="spinner"></span> Analyzing your question...
-      </div>
-      <div class="error" id="error"></div>
-      <pre id="result"></pre>
-    </div>
-  </div>
-  <script src="/static/script.js"></script>
-</body>
+            <div class="result-container" id="resultContainer">
+                <div class="loading" id="loading">
+                    <span class="spinner"></span> Analyzing your question...
+                </div>
+                <div class="error" id="error"></div>
+                <pre id="result"></pre>
+            </div>
+
+            <!-- History Section -->
+            <div class="history-section" id="historySection">
+                <h3>📋 Recent lecture text & question(s)</h3>
+                <div class="history-list" id="historyList"></div>
+                <button id="clearHistoryBtn" class="clear-history-btn">Clear History</button>
+            </div>
+        </div>
+        <script src="/static/script.js"></script>
+    </body>
 </html>
