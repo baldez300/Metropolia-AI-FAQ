@@ -1,6 +1,8 @@
 # 📚 Metropolia UAS Course FAQs Assistant
 
-A small Flask web application that integrates the OpenAI API to provide an AI-powered Course FAQ Assistant. The backend (`app.py`) exposes an `/ask` endpoint that validates input and queries OpenAI, while the frontend (`templates/index.html`, `static/script.js`, `static/styles.css`) provides a simple UI for pasting lecture text, asking questions and viewing results. Tests are included (`tests/test_app.py`) and dependencies are listed in `requirements.txt`.
+A Flask web application that uses OpenAI's large language models LLMs to assist Metropolia students and staff by providing instant answers to questions about course materials. Users can paste lecture notes and ask questions, and the AI will deliver concise, helpful responses. 
+
+- The backend (`app.py`) exposes an `/ask` endpoint that validates input and queries OpenAI, while the frontend (`templates/index.html`, `static/script.js`, `static/styles.css`) provides a simple UI for pasting lecture text, asking questions and viewing results. Tests are included (`tests/test_app.py`) and dependencies are listed in `requirements.txt`.
 
 ## 🎯 Problem Solved
 
@@ -195,7 +197,7 @@ This project demonstrates:
 
 ## 🚀 Future Enhancements
 
-- [ ] Chat history / context persistence
+- [X] Chat history / context persistence
 - [ ] Multiple document support
 - [ ] User authentication
 - [ ] Advanced formatting (markdown, syntax highlighting)
@@ -203,6 +205,8 @@ This project demonstrates:
 - [ ] Support for other LLM providers (Groq, Together.ai, etc)
 - [ ] Conversation memory for follow-up questions
 - [ ] File upload instead of paste
+- [ ] Delete individual Q&A pairs
+- [ ] Deployment to cloud platform (Heroku, AWS, etc)
 
 ## 📄 License
 
