@@ -24,6 +24,7 @@ Students often need quick summaries, clarifications or key takeaways from lectur
 
 ### Prerequisites
 - Python 3.8+
+- Download the Flutter SDK from [flutter.dev](https://flutter.dev/docs/get-started/install), make the Flutter SDK is in the same directory/folder as this project.
 - OpenAI API key ([get one here](https://platform.openai.com/api-keys))
 
 ### Installation
